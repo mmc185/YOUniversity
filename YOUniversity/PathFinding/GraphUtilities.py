@@ -6,11 +6,19 @@ class Node(object):
     def __init__(self, value):
         self.value = value  # valore contenuto nel nodo
         
+    def getValue(self):
+        return self.value
+    
     def __repr__(self):
         return str(self.value)
     
-    def getValue(self):
-        return self.value
+    def __eq__(self, other):
+        if type(self) != type(other):
+            return False
+        return self.value == other.getValue()
+    
+    def __hash__(self):
+        return hash(str(self))
 
     
 """    
@@ -63,13 +71,19 @@ class Path(object):
         self.path = []
         self.add(start)
         
+    def add(self, state):
+        self.path.append(state)
+        
     def getStart(self):
         return self.path[0]
         
     def getLastNode(self):
         return self.path[-1]
     
-    def __str__(self):
+    def getNodes(self):
+        return self.path
+    
+    def __repr__(self):
         s = ""
         for e in self.path:
             if self.path.index(e) == (len(self.path)-1):
@@ -78,9 +92,25 @@ class Path(object):
                 s = s + "{} -> ".format(e)
         return s
     
-    def add(self, state):
-        self.path.append(state)
+    # Operatori di confronto
+    def __eq__(self, other):
+        return self.path == other
+    
+    def __lt__(self, other):
+        if (len(self.path) >= len(other.getNodes())):
+            return False
         
+        for i in range(0, len(self.path)-1):
+            if self.path[i] >= other.getNodes()[i]:
+                return False
+
+    def __le__(self, other):
+        if (len(self.path) > len(other.getNodes())):
+            return False
+        
+        for i in range(0, len(self.path)-1):
+            if self.path[i] > other.getNodes()[i]:
+                return False
 
 
 """
@@ -104,4 +134,4 @@ print(a)
 
 n2 = Node(7)
 a2 = Arc(n0, n2, 10)
-print(a2)        
+print(a2)  
