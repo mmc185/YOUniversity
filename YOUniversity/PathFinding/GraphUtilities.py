@@ -17,6 +17,16 @@ class Node(object):
             return False
         return self.value == other.getValue()
     
+    def __lt__(self, other):
+        if type(self) != type(other):
+            return False
+        return self.value < other.getValue()
+        
+    def __le__(self, other):
+        if type(self) != type(other):
+            return False
+        return self.value <= other.getValue()
+    
     def __hash__(self):
         return hash(str(self))
 
@@ -47,11 +57,10 @@ class Arc(object):
     def getCost(self):
         return self.cost
     
-    """
+    # Dato un nodo di input, ritorna True se questo è coinvolto nell'arco altrimenti False
     def hasNode(self, node):
-        return ((node == self.from_node) 
-                    or (node == self.to_node))
-    """
+        return ((node == self.fromNode) 
+                    or (node == self.toNode))
 
     # Rappresentazione dell'arco, anche per stampe a video
     def __repr__(self):
@@ -111,27 +120,3 @@ class Path(object):
         for i in range(0, len(self.path)-1):
             if self.path[i] > other.getNodes()[i]:
                 return False
-
-
-"""
-p = Path(State(3))
-print(p.getStart())
-print(p.getLastNode())
-p.add(State(4))
-p.add(State(11))
-print(p.getStart())
-print(p.getLastNode())
-print(p.__str__())
-"""      
-    
-n0 = Node(3)
-n1 = Node(8)
-print(n0)
-print(n1)
-
-a = Arc(n0, n1)
-print(a)
-
-n2 = Node(7)
-a2 = Arc(n0, n2, 10)
-print(a2)  

@@ -5,7 +5,6 @@ Created on Sun Jan  3 12:21:36 2021
 @author: marta
 """
 import heapq
-import math
 from copy import deepcopy
 from GraphUtilities import Node, Path, Arc
 
@@ -105,7 +104,7 @@ def Astar(sProb, heuristic):
     # Inizialmente si conoscono solo i nodi di partenza
     openSet = AstarFrontier()
     for nStart in sProb.getStart():
-        openSet.add(Path(nStart), heuristic(nStart, goal))
+       openSet.add(Path(nStart), heuristic(nStart, goal))
         
     # Per un nodo n, cameFrom[n] è il nodo che lo precede nel path di costo minimo
     # da un nodo di partenza all'n corrente
@@ -127,23 +126,24 @@ def Astar(sProb, heuristic):
     i = 1 # TODO remove, è per debug
     
     while len(openSet) != 0:
+        
         # O(1) con coda con priorità/minheap
-        print("##############\n\nPaths: {}".format(openSet))
         currentPath = openSet.pop()  # Restituisce il Path con costo minore e lo rimuove dalla frontiera
         current = currentPath.getLastNode() # Restituisce l'ultimo nodo del percorso
-        
-        print("\nIteration: {}, Path: {}, State: {}".format(i, currentPath, current))
         
         # Se il nodo finale del percorso è un nodo obiettivo, restituiamo il percorso
         if sProb.isGoal(current):
                 return currentPath
 
-        # Per ogni nodo vicino al nodo esaminato correntemente
+        # Per ogni nodo cerchiamo gli archi in cui è presente (come nodo di partenza o arrivo)
         for a in sProb.getArcs():
-            if (a.getFromNode() == current):
+            if (a.hasNode(current)):
                 
-                # Nodo di arrivo, poiché il nodo di partenza sarà quello identificato da current
-                neighbor = a.getToNode() 
+                # A seconda che il nodo corrente sia di partenza o arrivo, prende il suo vicino
+                if a.getFromNode() == current:
+                    neighbor = a.getToNode() 
+                elif a.getToNode() == current:
+                    neighbor = a.getFromNode()
                 
                 # Costo del percorso da un nodo di partenza fino a current + costo di arco <current, neighbor>
                 tentative_gScore = gScore[current] + a.getCost() 
@@ -151,9 +151,6 @@ def Astar(sProb, heuristic):
                 # Se già esaminato, prende il costo del percorso già esaminato fino a neighbor
                 # altrimenti mette un valore molto grande/infinito
                 neighbor_gScore = gScore[neighbor] if (neighbor in gScore) else 50000
-                
-                print("Paths: {}".format(openSet))
-                print("Tentative Score: {}, Neighbor Score: {}".format(tentative_gScore, neighbor_gScore))
                 
                 if tentative_gScore < neighbor_gScore:
                     # il percorso trovato fino al neighbor è migliore di quello precedentemente esaminato
@@ -165,7 +162,6 @@ def Astar(sProb, heuristic):
                     
                     newPath = deepcopy(currentPath)
                     newPath.add(neighbor)
-                    print("currentPath: {}, newPath: {}".format(currentPath, newPath))
                     
                     if newPath not in openSet:
                         openSet.add(newPath, fScore[neighbor])
@@ -173,4 +169,3 @@ def Astar(sProb, heuristic):
         i = i + 1 # TODO remove, è per debug
         
     return None # non è stato trovato alcun percorso
-                        
