@@ -77,7 +77,8 @@ class AstarFrontier(object):
 
     # Restituisce il percorso con costo minimo, rimuovendolo dalla frontiera
     def pop(self):
-        return heapq.heappop(self.frontierpq)[1]  # Estrae e ritorna solamente il percorso
+        return heapq.heappop(self.frontierpq)
+        #return heapq.heappop(self.frontierpq)[1]  # Estrae e ritorna solamente il percorso
 
     # Ritorna la lunghezza della frontiera
     def __len__(self):
@@ -128,12 +129,14 @@ def Astar(sProb, heuristic):
     while len(openSet) != 0:
         
         # O(1) con coda con priorità/minheap
-        currentPath = openSet.pop()  # Restituisce il Path con costo minore e lo rimuove dalla frontiera
+        currentCost, currentPath = openSet.pop()  # Restituisce il Path con costo minore e lo rimuove dalla frontiera
         current = currentPath.getLastNode() # Restituisce l'ultimo nodo del percorso
         
         # Se il nodo finale del percorso è un nodo obiettivo, restituiamo il percorso
         if sProb.isGoal(current):
-                return currentPath
+            print("Iter: ",i) # stampe di debug
+            print("currentCost: ", currentCost)
+            return currentPath
 
         # Per ogni nodo cerchiamo gli archi in cui è presente (come nodo di partenza o arrivo)
         for a in sProb.getArcs():
