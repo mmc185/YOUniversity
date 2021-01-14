@@ -25,15 +25,15 @@ def saveMap(strPath):
     
     points, streets = loadLocations(strPath)
     
-    bariMap = folium.Map(location = [points[0].getValue().getY(), points[0].getValue().getX()], zoom_start = 15)
+    locationMap = folium.Map(location = [points[0].getValue().getY(), points[0].getValue().getX()], zoom_start = 15)
 
     for n in points:
-        folium.Marker(location = [n.getValue().getY(), n.getValue().getX()], tooltip = n.getValue().getName()).add_to(bariMap)
+        folium.Marker(location = [n.getValue().getY(), n.getValue().getX()], tooltip = n.getValue().getName()).add_to(locationMap)
 
     for a in streets:
-        folium.PolyLine(locations = [(a.getFromNode().getValue().getY(), a.getFromNode().getValue().getX()), (a.getToNode().getValue().getY(), a.getToNode().getValue().getX())], color = 'red').add_to(bariMap)
+        folium.PolyLine(locations = [(a.getFromNode().getValue().getY(), a.getFromNode().getValue().getX()), (a.getToNode().getValue().getY(), a.getToNode().getValue().getX())], color = 'red').add_to(locationMap)
 
-    bariMap.save("mymap.html")
+    locationMap.save("mymap.html")
 
 """
 Mostra la mappa aprendola nel browser
@@ -66,10 +66,10 @@ def findLocationsPath(startLocation, goalLocation):
     print("Calcolando percorso da ", startLocation.getName(), " a ", goalLocation.getName())
     
     # Crea un problema di ricerca con i nostri dati
-    spBari = SearchProblem(nodes, arcs, start, goal)
+    sp = SearchProblem(nodes, arcs, start, goal)
     
     # Utilizza l'algoritmo A* per risolvere efficientemente il problema di ricerca
-    result = Astar(spBari, heur)
+    result = Astar(sp, heur)
     print("Result: ", result) # stampa di debug
     
     # Crea la mappa dove visualizzare il percorso, partendo dal nodo che identifica il luogo iniziale
@@ -77,7 +77,11 @@ def findLocationsPath(startLocation, goalLocation):
 
     # Inserisce sulla mappa i vari Marker e Linee per indicare i luoghi e i percorsi
     rNodes = result.getNodes()
-    for n in rNodes:
+    
+    folium.Marker(location = [rNodes[0].getValue().getY(), rNodes[0].getValue().getX()], tooltip = rNodes[0].getValue().getName(), icon=folium.Icon(color = 'red', icon = "fas fa-map-pin", prefix = "fa")).add_to(resultMap)
+    folium.Marker(location = [rNodes[-1].getValue().getY(), rNodes[-1].getValue().getX()], tooltip = rNodes[-1].getValue().getName(), icon=folium.Icon(color = 'green', icon = "fas fa-flag-checkered", prefix = "fa")).add_to(resultMap)
+
+    for n in rNodes[1:-1]:
         folium.Marker(location = [n.getValue().getY(), n.getValue().getX()], tooltip = n.getValue().getName()).add_to(resultMap)
 
     for i in range(0, len(rNodes)-1):
@@ -88,14 +92,12 @@ def findLocationsPath(startLocation, goalLocation):
     
 """
 Funzione euristica utilizzata per le ricerche euristiche
+Nello specifico viene usata la distanza euclidea, ottimale per calcolare 
+la distanza in linea d'aria in sistemi basati su coordinate
+Funzione ammissibile, non sovrastima il costo effettivo della distanza (?)
 """
 def heur(a, b):
-    print("distanza: ")
     return math.sqrt((a.getValue().getX() - b.getValue().getX())**2 + abs(a.getValue().getY() - b.getValue().getY())**2)
-    #print("norma2: ")
-    #return (a.getValue().getX()*b.getValue().getX() + a.getValue().getY()*b.getValue().getY())/(math.sqrt(a.getValue().getX()**2 + a.getValue().getY()**2) * math.sqrt((b.getValue().getX()**2 + b.getValue().getY()**2)))
-    #print("dijkstra: ")
-    #return 0 # == dijkstra
 
    
 # Esempi di utilizzo:
@@ -103,5 +105,8 @@ def heur(a, b):
 saveMap(MAP_FILE_PATH)
 showMap("mymap.html")
 
-findLocationsPath(Location(16.872332011131505, 41.115107626544855, "Corso Benedetto Croce(1)"), Location(16.880681, 41.10796, "Politecnico/Campus-Via Edoardo Orabona"))
+
+#findLocationsPath(Location(16.872332011131505, 41.115107626544855, "Corso Benedetto Croce(1)"), Location(16.880681, 41.10796, "Politecnico/Campus-Via Edoardo Orabona"))
+findLocationsPath(Location(16.87138842777386, 41.122805359113045, "Feltrinelli-Via Melo da Bari(2)"), Location(16.865199699266178, 41.10720272253909, "Viale Papa Giovanni XXIII(1)"))
+
 
