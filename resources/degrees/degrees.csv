@@ -1,0 +1,16 @@
+id,name,class,years,location
+c001,Disegno Industriale,L-04,3,Politecnico/Campus-Via Orabona
+c002,Informatica,L-31,3,Politecnico/Campus-Via Orabona
+c003,Matematica,LM-40,2,Politecnico/Campus-Via Orabona
+c004,Medicina delle Piante,LM-69,2,Politecnico/Campus-Via Orabona
+c005,Scienza e Tecnologia dei Materiali,L-30,3,Politecnico/Campus-Via Orabona
+c006,Lettere Arti e Spettacolo,L-10,3,Ateneo-Piazza Cesare Battisti(1)
+c007,Filosofia,L-5,3,Ateneo-Piazza Cesare Battisti(1)
+c008,Progettazione delle Politiche di Inclusione Sociale,LM-87,2,Ateneo-Piazza Cesare Battisti(1)
+c009,Psicologia,LM-51,2,Ateneo-Piazza Cesare Battisti(1)
+c010,Giurisprudenza,LMG-01,5,Ateneo-Piazza Cesare Battisti(1)
+c011,Odontoiatria e Protesi Dentaria,LM-46,6,Policlinico-Via Francesco Campione(1)
+c012,Infermieristica,L-SNT1,3,Policlinico-Via Francesco Campione(1)
+c013,Medicina e Chirurgia,LM-41,6,Policlinico-Via Francesco Campione(1)
+c014,Marketing e Comunicazione d'Azienda,L-18,3,Facoltà di Economia-Largo Abbazia Santa Scolastica
+c015,Economia e Management,LM-77,2,Facoltà di Economia-Largo Abbazia Santa Scolastica
