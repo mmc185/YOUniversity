@@ -6,29 +6,23 @@ Created on Sun Jan  3 12:21:36 2021
 """
 import heapq
 from copy import deepcopy
-from GraphUtilities import Node, Path, Arc
+from GraphUtilities import Path
 
 """
 Classe che identifica un problema di ricerca generico.
 E' definito come un modello astratto indipendente dal particolare dominio,
-riconducendo il problema ad un grafo (orientato) fatto di nodi connessi da archi 
+riconducendo il problema ad un grafo, con un insieme di nodi connessi da archi, 
 nel quale bisogna trovare un percorso tra un nodo di partenza e uno obiettivo.
 """
 class SearchProblem(object):
     
     # Prende in input l'insieme di stati (nodi), l'insieme di archi, l'insieme dei nodi di partenza e un singolo nodo obiettivo
-    # TODO fare più nodi obiettivo e solo nell'algoritmo si specifica quale?
     def __init__(self, states, arcs, start, goal):
         self.states = states
         self.arcs = arcs
         self.start = start
         self.goal = goal
         
-    """    
-    def isGoal(self, state):
-        return state in self.goals
-    """
-    
     def isGoal(self, state):
         return state == self.goal
     
@@ -78,7 +72,6 @@ class AstarFrontier(object):
     # Restituisce il percorso con costo minimo, rimuovendolo dalla frontiera
     def pop(self):
         return heapq.heappop(self.frontierpq)
-        #return heapq.heappop(self.frontierpq)[1]  # Estrae e ritorna solamente il percorso
 
     # Ritorna la lunghezza della frontiera
     def __len__(self):
@@ -114,7 +107,7 @@ def Astar(sProb, heuristic):
     # Per un nodo n, gScore[n] è il costo effettivo del percorso da un nodo di partenza all'n corrente
     gScore = {}
     for path in openSet:
-        gScore[path.getLastNode()] = 0 # Il percorso da un nodo di partenza a se stesso è 0
+        gScore[path.getLastNode()] = 0 # Il costo del percorso da un nodo di partenza a se stesso è 0
         
     # Per un nodo n, fScore[n] = gScore[n] + heuristic(n)
     # ovvero il costo effettivo del percorso da un nodo di partenza al nodo n corrente
@@ -124,8 +117,6 @@ def Astar(sProb, heuristic):
         n = path.getLastNode()
         fScore[n] = heuristic(n, goal)
         
-    i = 1 # TODO remove, è per debug
-    
     while len(openSet) != 0:
         
         # O(1) con coda con priorità/minheap
@@ -134,8 +125,6 @@ def Astar(sProb, heuristic):
         
         # Se il nodo finale del percorso è un nodo obiettivo, restituiamo il percorso
         if sProb.isGoal(current):
-            print("Iter: ",i) # stampe di debug
-            print("currentCost: ", currentCost)
             return currentPath
 
         # Per ogni nodo cerchiamo gli archi in cui è presente (come nodo di partenza o arrivo)
@@ -169,6 +158,4 @@ def Astar(sProb, heuristic):
                     if newPath not in openSet:
                         openSet.add(newPath, fScore[neighbor])
                         
-        i = i + 1 # TODO remove, è per debug
-        
     return None # non è stato trovato alcun percorso

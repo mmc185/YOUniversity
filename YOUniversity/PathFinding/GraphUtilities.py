@@ -58,6 +58,7 @@ class Arc(object):
         return self.cost
     
     # Dato un nodo di input, ritorna True se questo è coinvolto nell'arco altrimenti False
+    # Per i grafi non orientati
     def hasNode(self, node):
         return ((node == self.fromNode) 
                     or (node == self.toNode))

@@ -51,10 +51,12 @@ class Location(object):
         return hash(str(self))
     
 
-# Funzione per caricare i luoghi e vie da file .csv
-# iL file dovrà contenere per ogni riga due punti identificati da coordinate
-# ad esempio: P1 = (x1, y1) e P2 = (x2, y2) che identificheranno un percorso
-# i punti verranno mappati in nodi, e le coppie di punti saranno unite in archi
+'''
+Funzione per caricare i luoghi e vie da file .csv
+Il file dovrà contenere per ogni riga due punti identificati da coordinate,
+ad esempio: P1 = (x1, y1) e P2 = (x2, y2) che identificheranno un percorso.
+I punti verranno mappati in nodi, e le coppie di punti saranno unite in archi.
+'''
 def loadLocations(strPath):
     nodes = []
     arcs = []
