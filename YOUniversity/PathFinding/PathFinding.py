@@ -17,8 +17,9 @@ MAP_FILE_PATH = "C:\\Users\\marta\\YOUniversity\\resources\\locations\\Bari.csv"
 
 """
 Crea una mappa nella cartella corrente, dato un file .csv
+E' possibile passare in input una lista di Location da contrassegnare diversamente sulla mappa
 """
-def saveMap(strPath):
+def saveMap(strPath, specialLocs = []):
     points = []
     streets = []
     
@@ -27,7 +28,10 @@ def saveMap(strPath):
     locationMap = folium.Map(location = [points[0].getValue().getY(), points[0].getValue().getX()], zoom_start = 15)
 
     for n in points:
-        folium.Marker(location = [n.getValue().getY(), n.getValue().getX()], tooltip = n.getValue().getName()).add_to(locationMap)
+        if n.getValue() in specialLocs: # Contrassegna la Location con un'icona diversa
+            folium.Marker(location = [n.getValue().getY(), n.getValue().getX()], tooltip = n.getValue().getName(), icon=folium.Icon(color = 'green', icon = "fas fa-map-pin", prefix = "fa")).add_to(locationMap)
+        else:
+            folium.Marker(location = [n.getValue().getY(), n.getValue().getX()], tooltip = n.getValue().getName()).add_to(locationMap)
 
     for a in streets:
         folium.PolyLine(locations = [(a.getFromNode().getValue().getY(), a.getFromNode().getValue().getX()), (a.getToNode().getValue().getY(), a.getToNode().getValue().getX())], color = 'red').add_to(locationMap)
@@ -106,8 +110,11 @@ def heur(a, b):
 
    
 # Esempi di utilizzo:
-    
-saveMap(MAP_FILE_PATH)
+uniLocs = [Location(16.867710387611574,41.12050146311193, "Ateneo-Piazza Cesare Battisti(1)"),
+        Location(16.880681,41.107960, "Politecnico/Campus-Via Edoardo Orabona"),
+        Location(16.862952188633987,41.11228311217753, "Policlinico-Piazza Giulio Cesare"),
+        Location(16.852464517078385,41.09527065940342, "Facoltà di Economia-Largo Abbazia Santa Scolastica")]
+saveMap(MAP_FILE_PATH, uniLocs)
 showMap("mymap.html")
 
 
