@@ -5,13 +5,13 @@ Created on Sun Jan 24 17:29:42 2021
 @author: marta
 """
 
-import pgmpy
 from pgmpy.models import BayesianModel
 from pgmpy.factors.discrete.CPD import TabularCPD
 from pgmpy.inference import VariableElimination
 
 '''
  Funzione per fare inferenza sul voto in base ai dati passati in input
+ sotto forma di dizionario (Feature, Valore)
 '''
 def gradeBayesianInference(evidences):
     grades_infer = VariableElimination(grades)
@@ -19,7 +19,7 @@ def gradeBayesianInference(evidences):
     return votoOffer
 
 '''
-Creazione della rete Bayesiana
+Creazione della Rete Bayesiana
 '''
 grades = BayesianModel([('Tempo libero', 'Studiato molto'), 
                         ('Studiato molto', 'Voto'),
@@ -58,7 +58,7 @@ grades.add_cpds(freetime_cpd, studiedHard_cpd, aptitude_cpd, emotionalFactor_cpd
 
 # Controlla che le probabilità siano state impostate correttamente
 if not grades.check_model():
-    print("Errore nella generazione della rete Bayesiana!")
+    print("Errore nella generazione della Rete Bayesiana!")
     exit
     
     
