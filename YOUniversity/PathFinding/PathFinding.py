@@ -13,7 +13,7 @@ from SearchProblemUtilities import SearchProblem, Astar
 from GeoLocationsUtilities import Location, loadLocations
 
 # File da cui caricare la mappa
-MAP_FILE_PATH = "C:\\Users\\marta\\YOUniversity\\resources\\locations\\Bari.csv"
+MAP_FILE_PATH = "C:\\Users\\Cugggino\\YOUniversity\\resources\\locations\\Bari.csv"
 
 """
 Crea una mappa nella cartella corrente, dato un file .csv
@@ -94,9 +94,10 @@ def findLocationsPath(startLocation, goalLocation, strPath):
     for i in range(0, len(rNodes)-1):
         folium.PolyLine(locations = [(rNodes[i].getValue().getY(),rNodes[i].getValue().getX()),(rNodes[i+1].getValue().getY(),rNodes[i+1].getValue().getX())], color = 'red').add_to(resultMap) 
     
-    resultMap.save("resultMap.html")
+    resultMap.save("resultMap.html") 
+    """    Commentato il 25Jan21 da marzna
     showMap("resultMap.html")
-
+    """
 
 
 """
@@ -115,10 +116,13 @@ uniLocs = [Location(16.867710387611574,41.12050146311193, "Ateneo-Piazza Cesare 
         Location(16.862952188633987,41.11228311217753, "Policlinico-Piazza Giulio Cesare"),
         Location(16.852464517078385,41.09527065940342, "Facoltà di Economia-Largo Abbazia Santa Scolastica")]
 saveMap(MAP_FILE_PATH, uniLocs)
-showMap("mymap.html")
 
+"""    Commentato il 25Jan21 da marzna
+showMap("mymap.html")
+"""
 
 #findLocationsPath(Location(16.872332011131505, 41.115107626544855, "Corso Benedetto Croce(1)"), Location(16.880681, 41.10796, "Politecnico/Campus-Via Edoardo Orabona"))
+"""    Commentato il 26Jan21 da marzna
 findLocationsPath(Location(16.87138842777386, 41.122805359113045, "Feltrinelli-Via Melo da Bari(2)"), Location(16.865199699266178, 41.10720272253909, "Viale Papa Giovanni XXIII(1)"), MAP_FILE_PATH)
-
+"""   
 
