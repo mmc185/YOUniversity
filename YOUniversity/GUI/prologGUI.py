@@ -8,7 +8,7 @@ import sys
 #from mainWindow import ROOT_DIR
 from howToReachUsGUI import ROOT_DIR
 sys.path.append(ROOT_DIR + '\\YOUniversity\\Prolog')
-from prologGianni import ask_KB, new_kb
+from prolog import ask_KB, new_kb
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_Dialog_Prolog(object):
