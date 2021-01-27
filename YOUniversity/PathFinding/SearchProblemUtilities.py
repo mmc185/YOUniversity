@@ -125,7 +125,7 @@ def Astar(sProb, heuristic):
         
         # Se il nodo finale del percorso è un nodo obiettivo, restituiamo il percorso
         if sProb.isGoal(current):
-            return currentPath
+            return currentPath,currentCost
 
         # Per ogni nodo cerchiamo gli archi in cui è presente (come nodo di partenza o arrivo)
         for a in sProb.getArcs():
