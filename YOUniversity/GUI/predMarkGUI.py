@@ -71,7 +71,8 @@ class Ui_Dialog_predMark(object):
         self.groupBoxQuestions = QtWidgets.QGroupBox(self.page_1)
         #self.groupBoxQuestions.setGeometry(QtCore.QRect(-10, 0, 601, 439))
         #self.groupBoxQuestions.setGeometry(QtCore.QRect(20, 10, 547, 421)) #left, top, width and height
-        self.groupBoxQuestions.setGeometry(QtCore.QRect(0, 10, 601, 439))
+        #self.groupBoxQuestions.setGeometry(QtCore.QRect(0, 10, 601, 439))
+        self.groupBoxQuestions.setGeometry(QtCore.QRect(0, 10, 601, 430))
         self.groupBoxQuestions.setFont(font)
         self.groupBoxQuestions.setTitle("")
         self.groupBoxQuestions.setObjectName("groupBoxQuestions")
@@ -280,14 +281,15 @@ class Ui_Dialog_predMark(object):
         self.showResults.setReadOnly(True)       
         self.showResults.setObjectName("showResults")
         self.labelLegendTitle = QtWidgets.QLabel(self.page_2)
-        self.labelLegendTitle.setGeometry(QtCore.QRect(30, 350, 191, 21))
+        self.labelLegendTitle.setGeometry(QtCore.QRect(30, 340, 191, 21))
         font.setFamily('MS Shell Dlg 2')
         font.setPointSize(13)
         self.labelLegendTitle.setFont(font)
         self.labelLegendTitle.setObjectName("labelLegendTitle")
         self.labelLegend = QtWidgets.QLabel(self.page_2)
-        self.labelLegend.setGeometry(QtCore.QRect(30, 370, 521, 71))
-        font.setPointSize(10)
+        #self.labelLegend.setGeometry(QtCore.QRect(30, 360, 700, 71))        
+        self.labelLegend.setGeometry(QtCore.QRect(30, 360, 500, 80))
+        font.setPointSize(11)
         self.labelLegend.setFont(font)
         self.labelLegend.setObjectName("labelLegend")
         
@@ -296,6 +298,7 @@ class Ui_Dialog_predMark(object):
         self.showResults = QtWidgets.QTextEdit(self.page_2)
         self.showResults.setGeometry(QtCore.QRect(20, 10, 547, 421))
         self.showResults.setReadOnly(True)
+        """
         """
         font.setFamily('MS Shell Dlg 2')
         font.setPointSize(14)
@@ -308,7 +311,9 @@ class Ui_Dialog_predMark(object):
         self.pushButtonGoBack.setObjectName("pushButtonGoBack")
         self.stackedWidget.addWidget(self.page_2)
         self.horizontalLayout.addWidget(self.stackedWidget)
+        """
 
+        #Tasto per chiudere la finestra
         self.pushButtonGoBack = QtWidgets.QPushButton(Dialog)
         self.pushButtonGoBack.setGeometry(QtCore.QRect(15, 15, 40, 40))
         self.pushButtonGoBack.setMaximumSize(QtCore.QSize(49, 49))
@@ -319,15 +324,29 @@ class Ui_Dialog_predMark(object):
         self.pushButtonGoBack.setIcon(icon)
         self.pushButtonGoBack.setIconSize(QtCore.QSize(49,49))
         self.pushButtonGoBack.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor))
-        self.pushButtonGoBack.clicked.connect(Dialog.close) #commenta se effettui il run da questo file
         
+        #Tasto per tornare alla pagina del calcolo dei voti
+        font.setFamily('MS Shell Dlg 2')
+        font.setPointSize(14)
+        font.setBold(True)
+        self.pushButtonBackToPage1 = QtWidgets.QPushButton(Dialog)
+        self.pushButtonBackToPage1.hide()
+        self.pushButtonBackToPage1.setGeometry(QtCore.QRect(140, 530, 421, 71))
+        self.pushButtonBackToPage1.setFont(font)
+        self.pushButtonBackToPage1.setAutoDefault(False)
+        self.pushButtonBackToPage1.setObjectName("pushButtonGoBack")
+        self.stackedWidget.addWidget(self.page_2)
+        self.horizontalLayout.addWidget(self.stackedWidget)
+
 
         self.retranslateUi(Dialog)
-        self.stackedWidget.setCurrentIndex(0) #Seleziona la prima pagina da mostrare
         QtCore.QMetaObject.connectSlotsByName(Dialog)
         
+        #Azioni
+        self.stackedWidget.setCurrentIndex(0) #Seleziona la prima pagina da mostrare
+        self.pushButtonGoBack.clicked.connect(Dialog.close) #commenta se effettui il run da questo file
         self.pushButtonCalculate.clicked.connect(self.predVoto)
-        self.pushButtonGoBack.clicked.connect(self.goBack)
+        self.pushButtonBackToPage1.clicked.connect(self.goBack)
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
@@ -361,7 +380,8 @@ class Ui_Dialog_predMark(object):
         self.labelEmoFactor.setText(_translate("Dialog", "- Sei una persona ansiosa durante gli esami?"))
         self.pushButtonCalculate.setText(_translate("Dialog", "Quale potrebbe essere l\'esito dell\'esame?"))
         self.showResults.setPlainText(_translate("Dialog", ""))
-        self.labelLegendTitle.setText(_translate("Dialog", "Legenda"))
+        self.labelLegendTitle.setText(_translate("Dialog", "Legenda:"))
+        self.pushButtonBackToPage1.setText(_translate("Dialog", "Torna indietro "))
         self.labelLegend.setText(_translate("Dialog", 
                                             "- Voto(0): Voto compreso tra 18 e 23\n"
                                             "- Voto(1): Voto compreso tra 24 e 27\n"
@@ -375,7 +395,9 @@ class Ui_Dialog_predMark(object):
         self.labelTitlePredVoto.setText("Predizione del voto - Risultati ")
         self.stackedWidget.setCurrentIndex(1) #Mostra la pagina dei risultati
         self.pushButtonCalculate.hide()
-        self.pushButtonGoBack.show()
+        self.pushButtonGoBack.hide()
+        self.pushButtonBackToPage1.show()
+        
         d_freeTime = {  self.rbFreeTime1: 0, 
                         self.rbFreeTime2: 1, 
                         self.rbFreeTime3: 2,
@@ -437,7 +459,8 @@ class Ui_Dialog_predMark(object):
     def goBack(self):
         self.labelTitlePredVoto.setText("Predizione del voto - Calcolo ")
         self.pushButtonCalculate.show()
-        self.pushButtonGoBack.hide()
+        self.pushButtonGoBack.show()
+        self.pushButtonBackToPage1.hide()
         
         self.stackedWidget.setCurrentIndex(0) #Torna alla pagina delle domande
     

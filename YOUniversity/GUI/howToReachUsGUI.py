@@ -27,7 +27,7 @@ class Ui_Dialog_FindUs(object):
   
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(579, 473)
+        Dialog.resize(579, 500)
         
         
         self.comboBoxStart = QtWidgets.QComboBox(Dialog)
@@ -71,12 +71,21 @@ class Ui_Dialog_FindUs(object):
         self.pushButtonSearch.setAutoDefault(False)
         self.pushButtonSearch.setObjectName("pushButton")
         self.commandLinkButtonViewBrowser = QtWidgets.QCommandLinkButton(Dialog)
-        self.commandLinkButtonViewBrowser.setGeometry(QtCore.QRect(220, 430, 341, 41))
-        self.commandLinkButtonViewBrowser.setAutoDefault(False)
+        #self.commandLinkButtonViewBrowser.setGeometry(QtCore.QRect(220, 450, 341, 41))
+        self.commandLinkButtonViewBrowser.setGeometry(QtCore.QRect(300, 460, 341, 41))
+        self.commandLinkButtonViewBrowser.setAutoDefault(False)  
+        font.setPointSize(10)
+        self.commandLinkButtonViewBrowser.setFont(font)
         self.commandLinkButtonViewBrowser.setObjectName("commandLinkButtonViewBrowser")
-    
-        self.commandLinkButtonViewBrowser.hide() #Viene mostrato solo dopo aver premuto il tasto di ricerca
-             
+        
+        self.labelCost = QtWidgets.QLabel(Dialog)
+        #self.commandLinkButtonViewBrowser.setGeometry(QtCore.QRect(220, 430, 341, 41))
+        self.labelCost.setGeometry(QtCore.QRect(40, 430, 491, 41))
+        font.setPointSize(12)
+        self.labelCost.setFont(font)
+        self.labelCost.setObjectName("labelCost")
+        
+            
         self.pushButtonMapView = QtWidgets.QPushButton(Dialog)
         self.pushButtonMapView.setGeometry(QtCore.QRect(40, 210, 491, 221))
         self.pushButtonMapView.setText("")
@@ -87,32 +96,6 @@ class Ui_Dialog_FindUs(object):
         self.pushButtonMapView.setIconSize(QtCore.QSize(491, 221))
         self.pushButtonMapView.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor))
         
-        self.retranslateUi(Dialog)
-        QtCore.QMetaObject.connectSlotsByName(Dialog)
-
-    def retranslateUi(self, Dialog):
-        _translate = QtCore.QCoreApplication.translate
-        Dialog.setWindowTitle(_translate("Dialog", "Come raggiungere il tuo dipartimento"))
-        
-        #aggiungo le combo box di partenza e destinazione
-        i = 0
-        
-        for p in self.pointsSet:
-            self.comboBoxStart.setItemText(i, _translate("Dialog", p))
-            i = i + 1 
-        
-        self.comboBoxGoal.setItemText(0, _translate("Dialog", "Ateneo-Piazza Cesare Battisti(1)"))
-        self.comboBoxGoal.setItemText(1, _translate("Dialog", "Facoltà di Economia-Largo Abbazia Santa Scolastica"))
-        self.comboBoxGoal.setItemText(2, _translate("Dialog", "Policlinico-Piazza Giulio Cesare"))
-        self.comboBoxGoal.setItemText(3, _translate("Dialog", "Politecnico/Campus-Via Edoardo Orabona"))
-        
-        self.labelTitle.setText(_translate("Dialog", "Come raggiungere il tuo dipartimento"))
-        self.labelStart.setText(_translate("Dialog", "Seleziona la partenza:"))
-        
-        self.labelGoal.setText(_translate("Dialog", "Seleziona la destinazione:"))
-        self.pushButtonSearch.setText(_translate("Dialog", "Calcola il percorso migliore"))
-        self.commandLinkButtonViewBrowser.setText(_translate("Dialog", "Visualizza il percorso dal browser"))
-
         self.pushButtonSearch.clicked.connect(self.searchPath)
         self.pushButtonMapView.setToolTip("Clicca qui per visualizzare la mappa completa da browser")
         self.pushButtonMapView.clicked.connect(self.viewMap)
@@ -129,10 +112,38 @@ class Ui_Dialog_FindUs(object):
         self.pushButtonGoBack.setIconSize(QtCore.QSize(49,49))
         self.pushButtonGoBack.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor))
         self.pushButtonGoBack.clicked.connect(Dialog.close)
+        self.commandLinkButtonViewBrowser.hide() #Viene mostrato solo dopo aver premuto il tasto di ricerca
         
+        
+        
+        self.retranslateUi(Dialog)
+        QtCore.QMetaObject.connectSlotsByName(Dialog)
+      
         
         self.commandLinkButtonViewBrowser.clicked.connect(self.openTab)
     
+    def retranslateUi(self, Dialog):
+        _translate = QtCore.QCoreApplication.translate
+        Dialog.setWindowTitle(_translate("Dialog", "Come raggiungere il tuo dipartimento"))
+        
+        #aggiungo le combo box di partenza
+        i = 0
+        for p in self.pointsSet:
+            self.comboBoxStart.setItemText(i, _translate("Dialog", p))
+            i = i + 1 
+        #aggiungo le combo box di destinazione
+        self.comboBoxGoal.setItemText(0, _translate("Dialog", "Ateneo-Piazza Cesare Battisti(1)"))
+        self.comboBoxGoal.setItemText(1, _translate("Dialog", "Facoltà di Economia-Largo Abbazia Santa Scolastica"))
+        self.comboBoxGoal.setItemText(2, _translate("Dialog", "Policlinico-Piazza Giulio Cesare"))
+        self.comboBoxGoal.setItemText(3, _translate("Dialog", "Politecnico/Campus-Via Edoardo Orabona"))
+        
+        self.labelTitle.setText(_translate("Dialog", "Come raggiungere il tuo dipartimento"))
+        self.labelStart.setText(_translate("Dialog", "Seleziona la partenza:"))
+        
+        self.labelGoal.setText(_translate("Dialog", "Seleziona la destinazione:"))
+        self.pushButtonSearch.setText(_translate("Dialog", "Calcola il percorso migliore"))
+        self.commandLinkButtonViewBrowser.setText(_translate("Dialog", "Visualizza il percorso dal browser"))
+
     def __init__(self):
         self.pointsSet = set() 
         
@@ -159,6 +170,7 @@ class Ui_Dialog_FindUs(object):
 
         cost=findLocationsPath(Location(start.getValue().getX(), start.getValue().getY(), start.getValue().getName()), Location(dest.getValue().getX(), dest.getValue().getY(), dest.getValue().getName()), MAP_FILE_PATH)  
         #TODO LABEL
+        self.labelCost.setText("La lunghezza del percorso è di " + str(cost) + " metri.")
         self.commandLinkButtonViewBrowser.show()        
     
     def viewMap(self):

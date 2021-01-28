@@ -151,28 +151,40 @@ class Ui_Dialog_Prolog(object):
         self.showInput.clear()
         
     def sendAndSearch(self):
+        #imposta la posizione del cursore a 0, per permettere di scrivere sempre in testa 
+        cursor = QtGui.QTextCursor(self.showOutput.document())# set the cursor position to 0
+        # imposta la posizione del cursore a 0( default=0, è ridondante ma lo inserisco ugualmente)
+        cursor.setPosition(0)
+        self.showOutput.setTextCursor(cursor)
         query = self.showInput.toPlainText()
+        self.showInput.clear()
         font = QtGui.QFont()
         font.setPointSize(12)
         #font.setBold(True) #inutile metterlo perché il plainText modifica tutto il testo
         self.showOutput.setFont(font)
+        cursor.setPosition(0)
+        self.showOutput.setTextCursor(cursor)
         self.showOutput.insertPlainText("- Input:\n" + query )
-        self.showInput.clear()
         self.showOutput.insertPlainText("\n\n- Output:\n")
         results=ask_KB(new_kb, query)
         for r in results:
             self.showOutput.insertPlainText(r + "\n")
         self.showOutput.insertPlainText('----------------------------------------------------------------------------------------------------\n')
-        
-        
-        
+        cursor.setPosition(0)
+        self.showOutput.setTextCursor(cursor)
+               
         
     def showExamples(self):
         """#da rimuovere se lascio il plaintext
         font = QtGui.QFont()
         font.setPointSize(11)
         font.setItalic(True)
-        """
+        """  
+        #Inserisco il cursore 
+        cursor = QtGui.QTextCursor(self.showOutput.document())# set the cursor position to 0
+        cursor.setPosition(0)
+        self.showOutput.setTextCursor(cursor)
+       
         self.showOutput.insertPlainText('\n ESEMPI:\n'+
                                         '\t- insegna(Professore,Materia)\n' +
                                         '\t- in(Aula,Edificio)\n' +

@@ -474,8 +474,8 @@ if __name__ == "__main__":
     #import sys #da decommentare se si cancella l'import nelle prime  righe
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
-    
-    
+    #MainWindow.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.WindowStaysOnTopHint) #rimuove il minimize/maximize button dalla top bar
+    MainWindow.setWindowFlags(QtCore.Qt.WindowCloseButtonHint )
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
         
