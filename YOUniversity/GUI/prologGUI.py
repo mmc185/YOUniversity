@@ -4,8 +4,6 @@
 #
 # WARNING! All changes made in this file will be lost!
 import sys
-#sys.path.append('C:\\Users\\Cugggino\\YOUniversity\\YOUniversity\\Prolog')
-#from mainWindow import ROOT_DIR
 from howToReachUsGUI import ROOT_DIR
 sys.path.append(ROOT_DIR + '\\YOUniversity\\Prolog')
 from prolog import ask_KB, new_kb
@@ -25,7 +23,6 @@ class Ui_Dialog_Prolog(object):
         Dialog.setMaximumSize(QtCore.QSize(701, 620))
         Dialog.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
         Dialog.setWhatsThis("")
-        #Dialog.setModal(True)
         self.horizontalLayoutWidget_6 = QtWidgets.QWidget(Dialog)
         self.horizontalLayoutWidget_6.setGeometry(QtCore.QRect(0, 10, 701, 73))
         self.horizontalLayoutWidget_6.setObjectName("horizontalLayoutWidget_6")
@@ -50,7 +47,6 @@ class Ui_Dialog_Prolog(object):
         self.horizontalLayoutOutput.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayoutOutput.setObjectName("horizontalLayoutOutput")
         self.showOutput = QtWidgets.QPlainTextEdit(self.horizontalLayoutWidget_7)
-        font = QtGui.QFont()
         font.setPointSize(12)
         self.showOutput.setFont(font)
         self.showOutput.viewport().setProperty("cursor", QtGui.QCursor(QtCore.Qt.IBeamCursor))
@@ -66,8 +62,8 @@ class Ui_Dialog_Prolog(object):
         self.horizontalLayoutInput = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget_8)
         self.horizontalLayoutInput.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayoutInput.setObjectName("horizontalLayoutInput")
+        
         self.showInput = QtWidgets.QPlainTextEdit(self.horizontalLayoutWidget_8)
-        font = QtGui.QFont()
         font.setPointSize(12)
         self.showInput.setFont(font)
         self.showInput.viewport().setProperty("cursor", QtGui.QCursor(QtCore.Qt.IBeamCursor))
@@ -75,6 +71,7 @@ class Ui_Dialog_Prolog(object):
         self.showInput.setOverwriteMode(False)
         self.showInput.setObjectName("showInput")
         self.horizontalLayoutInput.addWidget(self.showInput)
+        
         self.pushButtonSend = QtWidgets.QPushButton(self.horizontalLayoutWidget_8)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -82,12 +79,12 @@ class Ui_Dialog_Prolog(object):
         sizePolicy.setHeightForWidth(self.pushButtonSend.sizePolicy().hasHeightForWidth())
         self.pushButtonSend.setSizePolicy(sizePolicy)
         self.pushButtonSend.setMaximumSize(QtCore.QSize(49, 49))
-        font = QtGui.QFont()
         font.setPointSize(12)
         self.pushButtonSend.setFont(font)
         self.pushButtonSend.setObjectName("pushButtonSend")
         self.pushButtonSend.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor))
         self.horizontalLayoutInput.addWidget(self.pushButtonSend)
+       
         self.pushButtonExamples = QtWidgets.QPushButton(self.horizontalLayoutWidget_8)
         self.pushButtonExamples.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
@@ -121,7 +118,6 @@ class Ui_Dialog_Prolog(object):
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
         
-        #TODOself.showInput.placeholder("Inserisci qui il testo...")
         self.pushButtonGoBack = QtWidgets.QPushButton(Dialog)
         self.pushButtonGoBack.setGeometry(QtCore.QRect(25, 25, 49, 49))
         self.pushButtonGoBack.setMaximumSize(QtCore.QSize(49, 49))
@@ -151,16 +147,16 @@ class Ui_Dialog_Prolog(object):
         self.showInput.clear()
         
     def sendAndSearch(self):
-        #imposta la posizione del cursore a 0, per permettere di scrivere sempre in testa 
+        
+        # imposta la posizione del cursore a 0, per permettere di scrivere sempre in testa 
         cursor = QtGui.QTextCursor(self.showOutput.document())# set the cursor position to 0
-        # imposta la posizione del cursore a 0( default=0, è ridondante ma lo inserisco ugualmente)
         cursor.setPosition(0)
         self.showOutput.setTextCursor(cursor)
+        
         query = self.showInput.toPlainText()
         self.showInput.clear()
         font = QtGui.QFont()
         font.setPointSize(12)
-        #font.setBold(True) #inutile metterlo perché il plainText modifica tutto il testo
         self.showOutput.setFont(font)
         cursor.setPosition(0)
         self.showOutput.setTextCursor(cursor)
@@ -175,17 +171,11 @@ class Ui_Dialog_Prolog(object):
                
         
     def showExamples(self):
-        """#da rimuovere se lascio il plaintext
-        font = QtGui.QFont()
-        font.setPointSize(11)
-        font.setItalic(True)
-        """  
-        #Inserisco il cursore 
-        cursor = QtGui.QTextCursor(self.showOutput.document())# set the cursor position to 0
+        cursor = QtGui.QTextCursor(self.showOutput.document())
         cursor.setPosition(0)
         self.showOutput.setTextCursor(cursor)
-       
-        self.showOutput.insertPlainText('ESEMPI:\n'+
+        self.showOutput.insertPlainText('----------------------------------------------------------------------------------------------------\n' +
+                                        'ESEMPI:\n'+
                                         '\t- insegna(Professore,Materia)\n' +
                                         '\t- in(Aula,Edificio)\n' +
                                         '\t- corso(Professore,Anno_corso)\n' +
@@ -194,10 +184,7 @@ class Ui_Dialog_Prolog(object):
                                         '\t- classe(Anno_corso,Aula)\n'+
                                         '\t- luogo(Corso,Palazzo)\n' +
                                         '----------------------------------------------------------------------------------------------------\n')
-        """
-        self.showOutput.setFont(font)
-        self.setItalic(False)
-        """
+       
         
 if __name__ == "__main__":
     import sys

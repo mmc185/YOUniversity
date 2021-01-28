@@ -16,12 +16,8 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(580, 400)
-        #sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         
-        #MainWindow.setWindowOpacity(1.0)
-        #MainWindow.setAutoFillBackground(False)
         MainWindow.setStyleSheet("background-color: rgb(237,237,236);")
-        #MainWindow.setAnimated(False)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         palette = QtGui.QPalette()
         brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
@@ -156,14 +152,6 @@ class Ui_MainWindow(object):
         brush = QtGui.QBrush(QtGui.QColor(255, 255, 220))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.ToolTipBase, brush)
-        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.ToolTipText, brush)
-        self.centralwidget.setPalette(palette)
-        self.centralwidget.setObjectName("centralwidget")
-        self.comeRaggiungerci = QtWidgets.QPushButton(self.centralwidget)
-        self.comeRaggiungerci.setGeometry(QtCore.QRect(50, 50, 481, 71))
-        palette = QtGui.QPalette()
         brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.WindowText, brush)
@@ -218,10 +206,19 @@ class Ui_MainWindow(object):
         brush = QtGui.QBrush(QtGui.QColor(255, 211, 28))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Window, brush)
-        self.comeRaggiungerci.setPalette(palette)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.ToolTipText, brush)
+        self.centralwidget.setPalette(palette)
+        self.centralwidget.setObjectName("centralwidget")
+        
         font = QtGui.QFont()
         font.setPointSize(14)
         font.setKerning(True)
+        
+        self.comeRaggiungerci = QtWidgets.QPushButton(self.centralwidget)
+        self.comeRaggiungerci.setGeometry(QtCore.QRect(50, 50, 481, 71))
+        self.comeRaggiungerci.setPalette(palette)
         self.comeRaggiungerci.setFont(font)
         self.comeRaggiungerci.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor))
         self.comeRaggiungerci.setAutoFillBackground(False)
@@ -287,9 +284,7 @@ class Ui_MainWindow(object):
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Window, brush)
         self.prologKB.setPalette(palette)
-        font = QtGui.QFont()
-        font.setPointSize(14)
-        font.setKerning(True)
+        
         self.prologKB.setFont(font)
         self.prologKB.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor))
         self.prologKB.setLayoutDirection(QtCore.Qt.LeftToRight)
@@ -299,7 +294,6 @@ class Ui_MainWindow(object):
         self.prologKB.setObjectName("prologKB")
         self.predMark = QtWidgets.QPushButton(self.centralwidget)
         self.predMark.setGeometry(QtCore.QRect(50, 250, 481, 71))
-        palette = QtGui.QPalette()
         brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.WindowText, brush)
@@ -355,9 +349,7 @@ class Ui_MainWindow(object):
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Window, brush)
         self.predMark.setPalette(palette)
-        font = QtGui.QFont()
-        font.setPointSize(14)
-        font.setKerning(True)
+     
         self.predMark.setFont(font)
         self.predMark.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor))
         self.predMark.setAutoFillBackground(False)
@@ -433,51 +425,28 @@ class Ui_MainWindow(object):
    
     
     def openWindowComeRaggiungerci(self):
-        self.window = QtWidgets.QMainWindow(None, QtCore.Qt.WindowSystemMenuHint | QtCore.Qt.WindowCloseButtonHint)
-        #Dialog = QtWidgets.QDialog(None, QtCore.Qt.WindowSystemMenuHint | QtCore.Qt.WindowCloseButtonHint)
-    
+        self.window = QtWidgets.QMainWindow(None, QtCore.Qt.WindowSystemMenuHint | QtCore.Qt.WindowCloseButtonHint )
         self.ui = Ui_Dialog_FindUs()
         self.ui.setupUi(self.window)
-       
         self.window.show()  
         
     def openWindowKB(self):
         self.window = QtWidgets.QMainWindow(None, QtCore.Qt.WindowSystemMenuHint | QtCore.Qt.WindowCloseButtonHint)
-        
         self.ui = Ui_Dialog_Prolog()
         self.ui.setupUi(self.window)
-       
         self.window.show()  
         
     def openWindowPredMark(self):
         self.window = QtWidgets.QMainWindow(None, QtCore.Qt.WindowSystemMenuHint | QtCore.Qt.WindowCloseButtonHint)
-        
         self.ui = Ui_Dialog_predMark()
         self.ui.setupUi(self.window)
-       
         self.window.show()  
-        
-    
-        """
-        self.ui.ComeRaggiungerci = Ui_Dialog_FindUs()
-        self.ui.ComeRaggiungerci.setupUi(self.window)
-        self.ui.Prolog = Ui_Dialog_Prolog()
-        self.ui.Prolog.setupUi(self.window)
-        self.ui.PredMark = Ui_Dialog_predMark()
-        self.ui.PredMark.setupUi(self.window)
-        
-        self.window.show()  
-        """
-        
-        
+                
 if __name__ == "__main__":
-    #import sys #da decommentare se si cancella l'import nelle prime  righe
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
-    #MainWindow.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.WindowStaysOnTopHint) #rimuove il minimize/maximize button dalla top bar
     MainWindow.setWindowFlags(QtCore.Qt.WindowCloseButtonHint )
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
-        
     MainWindow.show()
     sys.exit(app.exec_())

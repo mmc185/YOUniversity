@@ -10,8 +10,6 @@ from howToReachUsGUI import ROOT_DIR
 sys.path.append(ROOT_DIR + '\\YOUniversity\\BayesianNetwork')
 
 from bayesianNetwork import gradeBayesianInference
-import numpy as np
-from pgmpy.extern import tabulate # da rimuovere se nn funziona tabulate
 
 class Ui_Dialog_predMark(object):
     def setupUi(self, Dialog):
@@ -26,7 +24,6 @@ class Ui_Dialog_predMark(object):
         Dialog.setMinimumSize(QtCore.QSize(701, 620))
         Dialog.setMaximumSize(QtCore.QSize(701, 620))
         Dialog.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
-        #Dialog.setModal(True)
         
         font = QtGui.QFont()
         font.setPointSize(15)
@@ -38,17 +35,17 @@ class Ui_Dialog_predMark(object):
         self.horizontalLayoutWidget_7.setGeometry(QtCore.QRect(10, 69, 681, 441))
         self.horizontalLayoutWidget_7.setObjectName("horizontalLayoutWidget_7")
         
+        
         font.setPointSize(12)      
         #Creazione stackedWidget (che permette di cambiare pagina, passando a quella che mostra il contenuto)
         self.stackedWidget = QtWidgets.QStackedWidget(self.horizontalLayoutWidget_7)
         self.stackedWidget.setObjectName("stackedWidget")
-        #Creazione prima pagina
+        #Creazione Pagina 1 - Calcolo
         self.page_1 = QtWidgets.QWidget()
         self.page_1.setObjectName("page_1")
         self.stackedWidget.addWidget(self.page_1)
           
         self.pushButtonCalculate = QtWidgets.QPushButton(Dialog)
-        #self.pushButtonCalculate = QtWidgets.QPushButton(Dialog)
         self.pushButtonCalculate.setGeometry(QtCore.QRect(140, 530, 421, 71))
         self.pushButtonCalculate.setFont(font)
         self.pushButtonCalculate.setAutoDefault(False)
@@ -69,9 +66,6 @@ class Ui_Dialog_predMark(object):
         
         font.setBold(False)        
         self.groupBoxQuestions = QtWidgets.QGroupBox(self.page_1)
-        #self.groupBoxQuestions.setGeometry(QtCore.QRect(-10, 0, 601, 439))
-        #self.groupBoxQuestions.setGeometry(QtCore.QRect(20, 10, 547, 421)) #left, top, width and height
-        #self.groupBoxQuestions.setGeometry(QtCore.QRect(0, 10, 601, 439))
         self.groupBoxQuestions.setGeometry(QtCore.QRect(0, 10, 601, 430))
         self.groupBoxQuestions.setFont(font)
         self.groupBoxQuestions.setTitle("")
@@ -88,7 +82,6 @@ class Ui_Dialog_predMark(object):
         
         #Creazione label relative alle domande
         font.setPointSize(14)
-        #font.setItalic(False)
         self.labelFreeTime = QtWidgets.QLabel(self.groupBoxQuestions)
         self.labelFreeTime.setGeometry(QtCore.QRect(10, 5, 561, 31))
         self.labelFreeTime.setFont(font)
@@ -113,7 +106,6 @@ class Ui_Dialog_predMark(object):
         
         #Creazione bottoni relativi alle domande
         font.setPointSize(12)  
-        #font.setItalic(False)
         self.horizontalLayoutWidget = QtWidgets.QWidget(self.groupBoxQuestions)
         self.horizontalLayoutWidget.setGeometry(QtCore.QRect(30, 40, 541, 31))
         self.horizontalLayoutWidget.setFont(font)
@@ -143,7 +135,7 @@ class Ui_Dialog_predMark(object):
         self.rbFreeTime5.setCursor(QtGui.QCursor(QtCore.Qt.ClosedHandCursor))
         self.rbFreeTime5.setObjectName("rbFreeTime5")
         
-        #Raggruppo i radio buttons
+        #Raggruppanento radio buttons
         self.groupRBfreeTime = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget)
         self.groupRBfreeTime.setContentsMargins(0, 0, 0, 0)
         self.groupRBfreeTime.setObjectName("groupRBfreeTime")
@@ -174,7 +166,7 @@ class Ui_Dialog_predMark(object):
         self.rbStudyHard3.setFont(font)
         self.rbStudyHard3.setCursor(QtGui.QCursor(QtCore.Qt.ClosedHandCursor))
         self.rbStudyHard3.setObjectName("rbStudyHard3")
-        #Raggruppo i radio buttons
+        #Raggruppamento radio buttons
         self.groupRBstudyHard = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget_2)
         self.groupRBstudyHard.setContentsMargins(0, 0, 0, 0)
         self.groupRBstudyHard.setObjectName("groupRBstudyHard")
@@ -203,7 +195,7 @@ class Ui_Dialog_predMark(object):
         self.horizontalLayoutWidget_4.setGeometry(QtCore.QRect(30, 310, 541, 31))
         self.horizontalLayoutWidget_4.setFont(font)
         self.horizontalLayoutWidget_4.setObjectName("horizontalLayoutWidget_4")
-        #Raggruppo i radio buttons
+        #Raggruppamento radio buttons
         self.groupRBAptitude = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget_3)
         self.groupRBAptitude.setContentsMargins(0, 0, 0, 0)
         self.groupRBAptitude.setObjectName("groupRBAptitude")
@@ -227,7 +219,7 @@ class Ui_Dialog_predMark(object):
         self.rbDifficulty3.setFont(font)
         self.rbDifficulty3.setCursor(QtGui.QCursor(QtCore.Qt.ClosedHandCursor))
         self.rbDifficulty3.setObjectName("rbDifficulty3")
-        #Raggruppo i radio buttons
+        #Raggruppamento radio buttons
         self.groupRBDifficulty = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget_4)
         self.groupRBDifficulty.setContentsMargins(0, 0, 0, 0)
         self.groupRBDifficulty.setObjectName("groupRBDifficulty")
@@ -248,10 +240,9 @@ class Ui_Dialog_predMark(object):
         self.rbEmoFactor2.setFont(font)
         self.rbEmoFactor2.setCursor(QtGui.QCursor(QtCore.Qt.ClosedHandCursor))
         self.rbEmoFactor2.setObjectName("rbEmoFactor2")
-        #self.horizontalLayout.addWidget(self.groupBoxQuestions)
         spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem3)
-        #Raggruppo i radio buttons
+        #Raggruppamento radio buttons
         self.groupRBEmoFactor = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget_5)
         self.groupRBEmoFactor.setContentsMargins(0, 0, 0, 0)
         self.groupRBEmoFactor.setObjectName("groupRBEmoFactor")
@@ -259,22 +250,18 @@ class Ui_Dialog_predMark(object):
         self.groupRBEmoFactor.addWidget(self.rbEmoFactor1)
         self.groupRBEmoFactor.addWidget(self.rbEmoFactor2)
         
-        #Imposto "non specificato" come scelta di default
+        #Scelte di default impostate a "non specificato"
         self.rbFreeTime0.setChecked(True)
         self.rbStudyHard0.setChecked(True)
         self.rbAptitude0.setChecked(True)
         self.rbEmoFactor0.setChecked(True)
         self.rbDifficulty0.setChecked(True)
               
-       
-        #Pagina 2
+        #Creazione Pagina 2 - Risultati
         self.page_2 = QtWidgets.QWidget()
         self.page_2.setObjectName("page_2")
         self.showResults = QtWidgets.QPlainTextEdit(self.page_2)
         self.showResults.setGeometry(QtCore.QRect(20, 10, 547, 321))
-        #self.showResults.setGeometry(QtCore.QRect(20, 10, 547, 421))
-        #self.showResults.setGeometry(QtCore.QRect(20, 10, 547, 241))
-        #self.showResults.setGeometry(QtCore.QRect(20, 10, 320, 240))
         font.setFamily('Consolas')
         font.setPointSize(16)
         self.showResults.setFont(font)
@@ -287,32 +274,11 @@ class Ui_Dialog_predMark(object):
         self.labelLegendTitle.setFont(font)
         self.labelLegendTitle.setObjectName("labelLegendTitle")
         self.labelLegend = QtWidgets.QLabel(self.page_2)
-        #self.labelLegend.setGeometry(QtCore.QRect(30, 360, 700, 71))        
         self.labelLegend.setGeometry(QtCore.QRect(30, 360, 500, 80))
         font.setPointSize(11)
         self.labelLegend.setFont(font)
         self.labelLegend.setObjectName("labelLegend")
-        
-                
-        """
-        self.showResults = QtWidgets.QTextEdit(self.page_2)
-        self.showResults.setGeometry(QtCore.QRect(20, 10, 547, 421))
-        self.showResults.setReadOnly(True)
-        """
-        """
-        font.setFamily('MS Shell Dlg 2')
-        font.setPointSize(14)
-        font.setBold(True)
-        self.pushButtonGoBack = QtWidgets.QPushButton(Dialog)
-        self.pushButtonGoBack.hide()
-        self.pushButtonGoBack.setGeometry(QtCore.QRect(140, 530, 421, 71))
-        self.pushButtonGoBack.setFont(font)
-        self.pushButtonGoBack.setAutoDefault(False)
-        self.pushButtonGoBack.setObjectName("pushButtonGoBack")
-        self.stackedWidget.addWidget(self.page_2)
-        self.horizontalLayout.addWidget(self.stackedWidget)
-        """
-
+   
         #Tasto per chiudere la finestra
         self.pushButtonGoBack = QtWidgets.QPushButton(Dialog)
         self.pushButtonGoBack.setGeometry(QtCore.QRect(15, 15, 40, 40))
@@ -448,21 +414,14 @@ class Ui_Dialog_predMark(object):
         else:
             self.res = gradeBayesianInference(evidences)
             self.showResults.setPlainText( str(gradeBayesianInference(evidences)) )
-        
-        #print('Evidenze: ')
-        #print(evidences)    
-        #esempio: {'Tempo libero': 4, 'Studiato molto': 2, 'Attitudine': 1, 'Fattore Emotivo': 0, 'Difficolta': 0}
-        #self.showResults.setPlainText( str(gradeBayesianInference(evidences)) )
-        #print(gradeBayesianInference(evidences))
-        
-        
+  
     def goBack(self):
         self.labelTitlePredVoto.setText("Predizione del voto - Calcolo ")
         self.pushButtonCalculate.show()
         self.pushButtonGoBack.show()
         self.pushButtonBackToPage1.hide()
         
-        self.stackedWidget.setCurrentIndex(0) #Torna alla pagina delle domande
+        self.stackedWidget.setCurrentIndex(0) #Torna alla pagina delle domande(0)
     
     
 if __name__ == "__main__":
