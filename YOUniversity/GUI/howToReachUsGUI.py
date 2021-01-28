@@ -7,12 +7,12 @@
 import os
 import sys
 import webbrowser
-from PathFinding import findLocationsPath
-from GeoLocationsUtilities import Location, loadLocations
 from PyQt5 import QtCore, QtGui, QtWidgets
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath('YOUniversity')))) # Percorso della cartella di progetto -> C:\\Users\\NomeUtente\\Cartella
 sys.path.append(ROOT_DIR + '\\YOUniversity\\PathFinding')
 MAP_FILE_PATH = ROOT_DIR + "\\resources\\locations\\Bari.csv"
+from PathFinding import findLocationsPath
+from GeoLocationsUtilities import Location, loadLocations
 
 class Ui_Dialog_FindUs(object):
   

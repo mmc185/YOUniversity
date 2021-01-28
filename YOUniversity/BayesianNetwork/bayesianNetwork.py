@@ -63,7 +63,7 @@ if not grades.check_model():
     
     
 # Esempio:
-print(gradeBayesianInference({'Fattore Emotivo':0}))
+#print(gradeBayesianInference({'Fattore Emotivo':0}))
 
     
     
