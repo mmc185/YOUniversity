@@ -185,14 +185,15 @@ class Ui_Dialog_Prolog(object):
         cursor.setPosition(0)
         self.showOutput.setTextCursor(cursor)
        
-        self.showOutput.insertPlainText('\n ESEMPI:\n'+
+        self.showOutput.insertPlainText('ESEMPI:\n'+
                                         '\t- insegna(Professore,Materia)\n' +
                                         '\t- in(Aula,Edificio)\n' +
                                         '\t- corso(Professore,Anno_corso)\n' +
                                         '\t- orario(Professore,Ora_inizio,Giorno)\n' +
                                         '\t- lezione(Materia,Ora_inizio,Giorno,Professore)\n' +
                                         '\t- classe(Anno_corso,Aula)\n'+
-                                        '\t- luogo(Corso,Palazzo)\n' )
+                                        '\t- luogo(Corso,Palazzo)\n' +
+                                        '----------------------------------------------------------------------------------------------------\n')
         """
         self.showOutput.setFont(font)
         self.setItalic(False)
