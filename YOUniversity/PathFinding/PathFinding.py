@@ -12,8 +12,13 @@ import webbrowser
 from SearchProblemUtilities import SearchProblem, Astar
 from GeoLocationsUtilities import Location, loadLocations
 
+#Per ottenere il path relativo della cartella di progetto:
+import os
+ROOT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath('YOUniversity'))))
+
 # File da cui caricare la mappa
-MAP_FILE_PATH = "C:\\Users\\marta\\YOUniversity\\resources\\locations\\Bari.csv"
+MAP_FILE_PATH = ROOT_DIR + "\\resources\\locations\\Bari.csv"
+# MAP_FILE_PATH ="C:\\Users\\Cugggino\\YOUniversity\\resources\\locations\\Bari.csv"
 
 """
 Crea una mappa nella cartella corrente, dato un file .csv
@@ -49,6 +54,7 @@ def showMap(strPath):
 """
 Dati un punto di inizio e di fine, sfrutta l'algoritmo A* per risolvere il problema di ricerca tra luoghi
 nello spazio della mappa del file .csv passato in input
+Restituisce il costo e salva il percorso sul file html della mappa
 """
 def findLocationsPath(startLocation, goalLocation, strPath):
     # Strutture dati per il problema di ricerca
@@ -75,7 +81,7 @@ def findLocationsPath(startLocation, goalLocation, strPath):
     sp = SearchProblem(nodes, arcs, start, goal)
     
     # Utilizza l'algoritmo A* per risolvere efficientemente il problema di ricerca
-    result = Astar(sp, heur)
+    result, cost= Astar(sp, heur)
     
     # Crea la mappa dove visualizzare il percorso, partendo dal nodo che identifica il luogo iniziale
     resultMap = folium.Map(location = [start[0].getValue().getY(), start[0].getValue().getX()], zoom_start = 15)
@@ -94,10 +100,8 @@ def findLocationsPath(startLocation, goalLocation, strPath):
     for i in range(0, len(rNodes)-1):
         folium.PolyLine(locations = [(rNodes[i].getValue().getY(),rNodes[i].getValue().getX()),(rNodes[i+1].getValue().getY(),rNodes[i+1].getValue().getX())], color = 'red').add_to(resultMap) 
     
-    resultMap.save("resultMap.html")
-    showMap("resultMap.html")
-
-
+    resultMap.save("resultMap.html") 
+    return cost 
 
 """
 Funzione euristica utilizzata per le ricerche euristiche
@@ -115,10 +119,8 @@ uniLocs = [Location(16.867710387611574,41.12050146311193, "Ateneo-Piazza Cesare 
         Location(16.862952188633987,41.11228311217753, "Policlinico-Piazza Giulio Cesare"),
         Location(16.852464517078385,41.09527065940342, "Facoltà di Economia-Largo Abbazia Santa Scolastica")]
 saveMap(MAP_FILE_PATH, uniLocs)
-showMap("mymap.html")
 
-
-#findLocationsPath(Location(16.872332011131505, 41.115107626544855, "Corso Benedetto Croce(1)"), Location(16.880681, 41.10796, "Politecnico/Campus-Via Edoardo Orabona"))
-findLocationsPath(Location(16.87138842777386, 41.122805359113045, "Feltrinelli-Via Melo da Bari(2)"), Location(16.865199699266178, 41.10720272253909, "Viale Papa Giovanni XXIII(1)"), MAP_FILE_PATH)
-
+#showMap("mymap.html")
+#findLocationsPath(Location(16.87138842777386, 41.122805359113045, "Feltrinelli-Via Melo da Bari(2)"), Location(16.865199699266178, 41.10720272253909, "Viale Papa Giovanni XXIII(1)"), MAP_FILE_PATH)
+   
 
