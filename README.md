@@ -30,9 +30,7 @@ YOUniversity
 |   |           
 |   +---locations
 |   |       Bari.csv
-|   |       
-|   \---uniba
-|           subjectStudentsTrainingSet.csv
+|
 |           
 \---YOUniversity
     +---BayesianNetwork
