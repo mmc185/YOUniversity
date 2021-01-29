@@ -39,7 +39,6 @@ YOUniversity
     +---GUI
     |   |   howToReachUsGUI.py
     |   |   menuGUI.py
-    |   |   mymap.html
     |   |   predMarkGUI.py
     |   \---prologGUI.py
     |              
