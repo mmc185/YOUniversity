@@ -128,7 +128,7 @@ class Ui_Dialog_Prolog(object):
         self.pushButtonGoBack.setIcon(icon)
         self.pushButtonGoBack.setIconSize(QtCore.QSize(49,49))
         self.pushButtonGoBack.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor))
-        self.pushButtonGoBack.clicked.connect(Dialog.close) #commenta se effettui il run da questo file
+        self.pushButtonGoBack.clicked.connect(Dialog.close) 
         
         
 

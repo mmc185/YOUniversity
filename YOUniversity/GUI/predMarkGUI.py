@@ -304,7 +304,6 @@ class Ui_Dialog_predMark(object):
         self.stackedWidget.addWidget(self.page_2)
         self.horizontalLayout.addWidget(self.stackedWidget)
 
-
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
         
@@ -408,7 +407,7 @@ class Ui_Dialog_predMark(object):
         for i in d_difficulty:  #Difficolta
             if i.isChecked():
                 evidences.update({'Difficolta': d_difficulty[i]})
-        #votoOffer.get_value(Voto=0)
+      
         if bool(evidences) == False:
             self.showResults.setPlainText('Errore.\nPer poter ottenere una predizione, tornare indietro e selezionare almeno uno dei parametri.')
         else:
