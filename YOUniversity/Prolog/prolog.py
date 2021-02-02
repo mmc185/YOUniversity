@@ -106,11 +106,11 @@ new_kb([
         "orario(novielli,h15,lunedi)",
         "orario(lops,h9,martedi)",
         "orario(novielli,h14,mercoledi)",
-        "orario(costabile,16,mercoledi)",
+        "orario(costabile,h16,mercoledi)",
         "orario(fanizzi,h13,giovedi)",
         "orario(novielli,h15,giovedi)", 
         "orario(lops,h13,venerdi)", 
-        "orario(costabile,16,venerdi)",
+        "orario(costabile,h16,venerdi)",
         
         #lezione(Materia,Ora_inizio,Giorno,Professore):-insegna(Professore,Materia),orario(Professore,Ora_inizio,Giorno)
         "lezione(M,H,G,P):-insegna(P,M),orario(P,H,G)",
